@@ -4038,7 +4038,7 @@ define([
         $container.empty().append(_content);
 
 
-// XXX Delete key form_updateMsg
+// XXX Delete translation key form_updateMsg
         if (editable) {
             var responseMsg = h('div.cp-form-response-msg-container');
             var $responseMsg = $(responseMsg).appendTo($container);

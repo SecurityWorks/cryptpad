@@ -140,10 +140,15 @@ define([
         return text.trim();
     };
 
+    var isMobile = /Android|iPhone/i.test(navigator.userAgent);
+
     module.mkIndentSettings = function (editor, metadataMgr) {
         var setIndentation = function (units, useTabs, fontSize, spellcheck, brackets) {
             if (typeof(units) !== 'number') { return; }
             var doc = editor.getDoc();
+            if (isMobile && fontSize < 16) {
+                fontSize = 16;
+            }
             editor.setOption('indentUnit', units);
             editor.setOption('tabSize', units);
             editor.setOption('indentWithTabs', useTabs);
@@ -480,7 +485,7 @@ define([
                 $toolbarContainer.find('#language-mode').val('text');
             }
             // return the mode so that the code editor can decide how to display the new content
-            return { content: content, mode: mode };
+            return { content: content, highlightMode: mode, authormarks: {} };
         };
 
         exp.setValueAndCursor = function (oldDoc, remoteDoc) {
