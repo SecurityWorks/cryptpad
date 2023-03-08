@@ -93,6 +93,18 @@ define([
         framework.onReady(function (newPad) {
         });
 
+        framework.setFileExporter('.drawio', function(cb) {
+            cb(x2js.json2xml_str(lastContent));
+        });
+
+        framework.setFileImporter(
+            { accept: ['.drawio',  'application/x-drawio'] },
+            function (content, file) {
+                var newXml = decompressDrawioXml(content);
+                var newJson = x2js.xml_str2json(newXml);
+            return newJson;
+        });
+
         // starting the CryptPad framework
         framework.start();
 
